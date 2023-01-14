@@ -4,9 +4,10 @@ import Category from '../models/category';
 
 interface Props {
   category: Category;
+  onPress: () => void;
 }
 
-export default function CategoryGridTile({ category }: Props) {
+export default function CategoryGridTile({ category, onPress }: Props) {
   const { title, color } = category;
 
   return (
@@ -16,6 +17,7 @@ export default function CategoryGridTile({ category }: Props) {
         style={({ pressed }) =>
           pressed ? [styles.button, styles.buttonPressed] : styles.button
         }
+        onPress={onPress}
       >
         <View style={[styles.innerContainer, , { backgroundColor: color }]}>
           <Text style={styles.title}>{title}</Text>
