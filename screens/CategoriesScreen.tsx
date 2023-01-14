@@ -2,18 +2,22 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlatList, View } from 'react-native';
 
+import { NavigatorProps } from '../App';
 import CategoryGridTile from '../components/CategoryGridTile';
 import { CATEGORIES } from '../data/dummy-data';
 
-type Props = {
-  MealsOverview: undefined;
-};
+type CategoriesScreenProps = NativeStackScreenProps<
+  NavigatorProps,
+  'MealsCategories'
+>;
 
-type ScreenProps = NativeStackScreenProps<Props>;
-
-export default function CategoriesScreen({ navigation }: ScreenProps) {
-  const pressHandler = () => {
-    navigation.navigate('MealsOverview');
+export default function CategoriesScreen({
+  navigation,
+}: CategoriesScreenProps) {
+  const pressHandler = (categoryId: string) => {
+    navigation.navigate('MealsOverview', {
+      categoryId,
+    });
   };
 
   return (

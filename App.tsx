@@ -6,7 +6,14 @@ import { StyleSheet } from 'react-native';
 import CategoriesScreen from './screens/CategoriesScreen';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
 
-const Stack = createNativeStackNavigator();
+export type NavigatorProps = {
+  MealsCategories: undefined;
+  MealsOverview: {
+    categoryId: string;
+  };
+};
+
+const Stack = createNativeStackNavigator<NavigatorProps>();
 
 export default function App() {
   return (
