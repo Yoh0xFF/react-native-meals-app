@@ -5,12 +5,16 @@ import { StyleSheet } from 'react-native';
 
 import { CATEGORIES } from './data/dummy-data';
 import CategoriesScreen from './screens/CategoriesScreen';
+import MealDetailScreen from './screens/MealDetailScreen';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
 
 export type NavigatorProps = {
   MealsCategories: undefined;
   MealsOverview: {
     categoryId: string;
+  };
+  MealDetailScreen: {
+    mealId: string;
   };
 };
 
@@ -41,6 +45,7 @@ export default function App() {
             }}
           />
           <Stack.Screen name='MealsOverview' component={MealsOverviewScreen} />
+          <Stack.Screen name='MealDetailScreen' component={MealDetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

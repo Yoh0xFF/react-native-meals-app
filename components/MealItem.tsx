@@ -8,33 +8,28 @@ import {
 } from 'react-native';
 
 import Meal from '../models/meal';
+import MealDetails from './MealDetails';
 
 interface Props {
   meal: Meal;
+  onPress: (mealId: string) => void;
 }
 
-export default function MealItem({ meal }: Props) {
-  const { title, imageUrl } = meal;
+export default function MealItem({ meal, onPress }: Props) {
+  const { id: mealId, title, imageUrl } = meal;
   return (
     <View style={styles.mealItem}>
       <Pressable
         android_ripple={{ color: '#ccc', borderless: true }}
         style={({ pressed }) => (pressed ? styles.mealItemPressed : {})}
+        onPress={() => onPress(mealId)}
       >
         <View style={styles.innerContainer}>
           <View>
             <Image style={styles.image} source={{ uri: imageUrl }} />
             <Text style={styles.title}>{title}</Text>
           </View>
-          <View style={styles.details}>
-            <Text style={styles.detailItem}>{meal.duration}m</Text>
-            <Text style={styles.detailItem}>
-              {meal.complexity.toUpperCase()}
-            </Text>
-            <Text style={styles.detailItem}>
-              {meal.affordability.toUpperCase()}
-            </Text>
-          </View>
+          <MealDetails meal={meal} />
         </View>
       </Pressable>
     </View>
@@ -69,15 +64,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     margin: 8,
-  },
-  details: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 8,
-  },
-  detailItem: {
-    marginHorizontal: 4,
-    fontSize: 12,
   },
 });

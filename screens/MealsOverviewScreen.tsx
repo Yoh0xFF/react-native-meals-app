@@ -26,12 +26,18 @@ export default function MealsOverviewScreen({
     });
   }, [categoryId, navigation]);
 
+  const pressHandler = (mealId: string) => {
+    navigation.navigate('MealDetailScreen', {
+      mealId,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
         data={meals}
         keyExtractor={(x) => x.id}
-        renderItem={(x) => <MealItem meal={x.item} />}
+        renderItem={(x) => <MealItem meal={x.item} onPress={pressHandler} />}
       />
     </View>
   );
