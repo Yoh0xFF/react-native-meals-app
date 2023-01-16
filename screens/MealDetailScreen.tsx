@@ -1,8 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useLayoutEffect } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { NavigatorProps } from '../App';
+import IconButton from '../components/IconButton';
 import List from '../components/MealDetail/List';
 import Subtitle from '../components/MealDetail/Subtitle';
 import MealDetails from '../components/MealDetails';
@@ -20,11 +21,23 @@ export default function MealDetailScreen({
   const { mealId } = route.params;
   const meal = MEALS.find((x) => x.id === mealId);
 
+  const onPressHandler = () => {
+    Alert.alert('Saved to favourites!', `Meal name: ${meal?.title ?? ''}`, [
+      {
+        style: 'default',
+        text: 'Got it!',
+      },
+    ]);
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: meal?.title ?? '',
+      headerRight: () => (
+        <IconButton icon='star' color='white' onPress={onPressHandler} />
+      ),
     });
-  }, [mealId, navigation]);
+  }, [meal, navigation]);
 
   if (meal == null) {
     return null;
