@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useLayoutEffect } from 'react';
 import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { NavigatorProps } from '../App';
+import { StackNavigatorProps } from '../App';
 import IconButton from '../components/IconButton';
 import List from '../components/MealDetail/List';
 import Subtitle from '../components/MealDetail/Subtitle';
@@ -10,7 +10,7 @@ import MealDetails from '../components/MealDetails';
 import { MEALS } from '../data/dummy-data';
 
 type MealDetailScreenProps = NativeStackScreenProps<
-  NavigatorProps,
+  StackNavigatorProps,
   'MealDetailScreen'
 >;
 

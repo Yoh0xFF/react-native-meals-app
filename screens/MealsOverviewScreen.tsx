@@ -2,12 +2,12 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect, useLayoutEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
-import { NavigatorProps } from '../App';
+import { StackNavigatorProps } from '../App';
 import MealItem from '../components/MealItem';
 import { CATEGORIES, MEALS } from '../data/dummy-data';
 
 type MealsOverviewScreenProps = NativeStackScreenProps<
-  NavigatorProps,
+  StackNavigatorProps,
   'MealsOverview'
 >;
 
