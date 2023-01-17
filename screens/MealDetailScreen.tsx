@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useLayoutEffect } from 'react';
-import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { StackNavigatorProps } from '../App';
 import IconButton from '../components/IconButton';
@@ -8,6 +8,7 @@ import List from '../components/MealDetail/List';
 import Subtitle from '../components/MealDetail/Subtitle';
 import MealDetails from '../components/MealDetails';
 import { MEALS } from '../data/dummy-data';
+import { useFavoritesContext } from '../store/context/FavoritesContext';
 
 type MealDetailScreenProps = NativeStackScreenProps<
   StackNavigatorProps,
@@ -18,26 +19,32 @@ export default function MealDetailScreen({
   route,
   navigation,
 }: MealDetailScreenProps) {
+  const { favoriteMealIds, addFavorites, remFavorites } = useFavoritesContext();
+
   const { mealId } = route.params;
   const meal = MEALS.find((x) => x.id === mealId);
+  const isFavorite = favoriteMealIds.includes(mealId);
 
   const onPressHandler = () => {
-    Alert.alert('Saved to favourites!', `Meal name: ${meal?.title ?? ''}`, [
-      {
-        style: 'default',
-        text: 'Got it!',
-      },
-    ]);
+    if (!favoriteMealIds.includes(mealId)) {
+      addFavorites(mealId);
+    } else {
+      remFavorites(mealId);
+    }
   };
 
   useLayoutEffect(() => {
     navigation.setOptions({
       title: meal?.title ?? '',
       headerRight: () => (
-        <IconButton icon='star' color='white' onPress={onPressHandler} />
+        <IconButton
+          icon={isFavorite ? 'star' : 'star-outline'}
+          color='white'
+          onPress={onPressHandler}
+        />
       ),
     });
-  }, [meal, navigation]);
+  }, [meal, isFavorite, onPressHandler, navigation]);
 
   if (meal == null) {
     return null;

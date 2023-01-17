@@ -1,9 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useEffect, useLayoutEffect } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { useLayoutEffect } from 'react';
+import { StyleSheet } from 'react-native';
 
 import { StackNavigatorProps } from '../App';
-import MealItem from '../components/MealItem';
+import MealsList from '../components/MealsList/MealsList';
 import { CATEGORIES, MEALS } from '../data/dummy-data';
 
 type MealsOverviewScreenProps = NativeStackScreenProps<
@@ -32,20 +32,7 @@ export default function MealsOverviewScreen({
     });
   };
 
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={meals}
-        keyExtractor={(x) => x.id}
-        renderItem={(x) => <MealItem meal={x.item} onPress={pressHandler} />}
-      />
-    </View>
-  );
+  return <MealsList meals={meals} onPress={pressHandler} />;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-});
+const styles = StyleSheet.create({});
