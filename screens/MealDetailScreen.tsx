@@ -8,7 +8,7 @@ import List from '../components/MealDetail/List';
 import Subtitle from '../components/MealDetail/Subtitle';
 import MealDetails from '../components/MealDetails';
 import { MEALS } from '../data/dummy-data';
-import { useFavoritesContext } from '../store/context/FavoritesContext';
+import { useFavoritesStore } from '../store/zustand/favoritesStore';
 
 type MealDetailScreenProps = NativeStackScreenProps<
   StackNavigatorProps,
@@ -19,7 +19,9 @@ export default function MealDetailScreen({
   route,
   navigation,
 }: MealDetailScreenProps) {
-  const { favoriteMealIds, addFavorites, remFavorites } = useFavoritesContext();
+  const favoriteMealIds = useFavoritesStore((state) => state.favoriteMealIds);
+  const addFavorites = useFavoritesStore((state) => state.addFavorites);
+  const remFavorites = useFavoritesStore((state) => state.remFavorites);
 
   const { mealId } = route.params;
   const meal = MEALS.find((x) => x.id === mealId);

@@ -6,7 +6,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { DrawerNavigatorProps, StackNavigatorProps } from '../App';
 import MealsList from '../components/MealsList/MealsList';
 import { MEALS } from '../data/dummy-data';
-import { useFavoritesContext } from '../store/context/FavoritesContext';
+import { useFavoritesStore } from '../store/zustand/favoritesStore';
 
 type FavoriteScreenProps = CompositeScreenProps<
   DrawerScreenProps<DrawerNavigatorProps, 'Favorites'>,
@@ -14,7 +14,7 @@ type FavoriteScreenProps = CompositeScreenProps<
 >;
 
 export default function FavoritesScreen({ navigation }: FavoriteScreenProps) {
-  const { favoriteMealIds } = useFavoritesContext();
+  const favoriteMealIds = useFavoritesStore((state) => state.favoriteMealIds);
   const meals = MEALS.filter((x) => favoriteMealIds.includes(x.id));
 
   const pressHandler = (mealId: string) => {
